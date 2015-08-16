@@ -1,11 +1,12 @@
 import angular from 'angular';
+import router from 'angular-ui-router';
+import templates from '../templates';
 
-import router from 'oclazyload-systemjs-router';
-import futureRoutes from 'app/routes.json!';
+//import router from 'oclazyload-systemjs-router';
+//import futureRoutes from 'app/routes.json!';
+import quizModule from 'app/quiz/quiz.config';
 
-var appModule = angular.module('app', []);
-
-appModule.config(router(appModule, futureRoutes));
+var appModule = angular.module('app', ['templates', 'ui.router', quizModule.name]);
 
 appModule.config(function($locationProvider, $httpProvider, $urlRouterProvider) {
 	$locationProvider.html5Mode({
@@ -21,5 +22,6 @@ angular.element(document).ready(function() {
 		strictDi: true
 	});
 });
+
 
 export default appModule;

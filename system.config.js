@@ -17,10 +17,11 @@ System.config({
 
 System.config({
   "map": {
-    "angular": "github:angular/bower-angular@1.3.15",
+    "angular": "github:angular/bower-angular@1.4.4",
     "angular-mocks": "github:angular/bower-angular-mocks@1.3.15",
-    "babel": "npm:babel@4.7.16",
-    "babel-runtime": "npm:babel-runtime@4.7.16",
+    "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
+    "babel": "npm:babel-core@5.8.22",
+    "babel-runtime": "npm:babel-runtime@5.8.20",
     "bluebird": "npm:bluebird@2.9.34",
     "core-js": "npm:core-js@0.9.18",
     "css": "github:systemjs/plugin-css@0.1.9",
@@ -30,11 +31,11 @@ System.config({
     "react": "npm:react@0.13.1",
     "todomvc-app-css": "github:tastejs/todomvc-app-css@1.0.3",
     "todomvc-common": "github:tastejs/todomvc-common@1.0.1",
-    "github:angular-ui/ui-router@0.2.13": {
-      "angular": "github:angular/bower-angular@1.3.15"
+    "github:angular-ui/ui-router@0.2.15": {
+      "angular": "github:angular/bower-angular@1.4.4"
     },
     "github:angular/bower-angular-mocks@1.3.15": {
-      "angular": "github:angular/bower-angular@1.3.15"
+      "angular": "github:angular/bower-angular@1.4.4"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -75,8 +76,8 @@ System.config({
       "util": "npm:util@0.10.3"
     },
     "github:lookfirst/oclazyload-systemjs-router@1.2.1": {
-      "angular": "github:angular/bower-angular@1.3.15",
-      "angular-ui-router": "github:angular-ui/ui-router@0.2.13",
+      "angular": "github:angular/bower-angular@1.4.4",
+      "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
       "oclazyload": "github:ocombe/ocLazyLoad@1.0.0-alpha2",
       "ui-router-extras": "github:christopherthielen/ui-router-extras@0.0.13"
     },
@@ -95,6 +96,9 @@ System.config({
       "util": "npm:util@0.10.3"
     },
     "npm:babel-runtime@4.7.16": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:babel-runtime@5.8.20": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:bluebird@2.9.34": {

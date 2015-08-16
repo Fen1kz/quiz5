@@ -1,19 +1,24 @@
 import angular from 'angular';
 import appModule from 'app/app';
-import todoTpl from 'app/quiz/quiz.tpl';
 
-let module = angular.module('quiz', [appModule.name, todoTpl.name]);
+let module = angular.module('quiz', []);
 
 import quizDirective from 'app/quiz/quiz/quiz.directive';
 
 quizDirective(module);
 
-
 module.config(($stateProvider) => {
 	$stateProvider
-		.state('home', {
-			url: '/quiz/home'
-			, templateUrl: todoTpl.name
+		.state('quiz', {
+			url: '/quiz'
+			// this is the place where to resolve dynamic template
+			, templateProvider: function($templateCache){
+				console.log($templateCache);
+				// simplified, expecting that the cache is filled
+				// there should be some checking... and async $http loading if not found
+				return $templateCache.get('app/quiz/quiz.tpl.html');
+			}
+			//, template: $templateCache.get('app/quiz/quiz.tpl.html')
 			, controller: ['$scope', controller]
 		})
 		//.state('todo.all', {

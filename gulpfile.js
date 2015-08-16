@@ -4,6 +4,7 @@ var taskMaker = gulpHelpers.taskMaker(gulp);
 var situation = gulpHelpers.situation();
 var _ = gulpHelpers.framework('_');
 var runSequence = gulpHelpers.framework('run-sequence');
+var templateCache = require('gulp-angular-templatecache');
 
 var path = {
 	source: 'src/**/*.js',
@@ -120,12 +121,12 @@ taskMaker.defineTask('babel', {
 	compilerOptions: {externalHelpers: false},
 	taskDeps: ['clean-e2e']
 });
-taskMaker.defineTask('ngHtml2Js', {
-	taskName: 'html',
-	src: path.templates,
-	dest: path.output,
-	compilerOptions: babelCompilerOptions
-});
+//taskMaker.defineTask('ngHtml2Js', {
+//	taskName: 'html',
+//	src: path.templates,
+//	dest: path.output,
+//	compilerOptions: babelCompilerOptions
+//});
 taskMaker.defineTask('copy', {taskName: 'systemConfig', src: path.systemConfig, dest: path.output});
 taskMaker.defineTask('copy', {taskName: 'assets', src: path.assets, dest: path.output});
 taskMaker.defineTask('copy', {taskName: 'json', src: path.json, dest: path.output, changed: {extension: '.json'}});
@@ -150,8 +151,19 @@ taskMaker.defineTask('karma', {taskName: 'karma', configFile: path.karmaConfig})
 taskMaker.defineTask('browserSync', {taskName: 'serve', config: serverOptions, historyApiFallback: true});
 taskMaker.defineTask('routeBundler', {taskName: 'routeBundler', config: routeBundleConfig});
 
+var TEMPLATE_HEADER = 'angular.module("<%= module %>"<%= standalone %>).run(["$templateCache", function($templateCache) {';
+gulp.task('template-cache', function () {
+	return gulp.src(path.templates)
+		.pipe(templateCache({
+			standalone: true
+			, templateHeader: TEMPLATE_HEADER
+		}))
+		.pipe(gulp.dest(path.output));
+});
+
 gulp.task('compile', function (callback) {
-	return runSequence(['less', 'less-themes', 'html', 'babel', 'babel-coffee', 'json', 'assets'], callback);
+	//return runSequence(['less', 'less-themes', 'html', 'babel', 'babel-coffee', 'json', 'assets'], callback);
+	return runSequence(['less', 'less-themes', 'template-cache', 'babel', 'babel-coffee', 'json', 'assets'], callback);
 });
 
 gulp.task('recompile', function (callback) {
