@@ -1,0 +1,13 @@
+[
+	{
+		"stateName": "todo",
+		"urlPrefix": "/todo",
+		"type": "load",
+		"src": "app/todo/todo"
+	}, {
+		"stateName": "quiz",
+		"urlPrefix": "/quiz",
+		"type": "load",
+		"src": "app/quiz/quiz.config"
+	}
+]
