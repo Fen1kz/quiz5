@@ -1,18 +1,17 @@
 export default (ngModule) => {
-	console.log(template);
-	//ngModule.directive('qzQuiz', directive);
+	ngModule.directive('qzQuiz', directiveFactory());
 };
 
-import template from 'app/quiz/quiz/quiz.directive.tpl';
-//
-//function directive() {
-//	return {
-//		restrict: 'E'
-//		, templateUrl: template.name
-//		, controller: [controller]
-//	}
-//}
-//
-//function controller() {
-//	console.log('quiz-d!');
-//}
+function directiveFactory() {
+	return ['$templateCache', function ($templateCache) {
+		return {
+			restrict: 'E'
+			, template: $templateCache.get('app/quiz/quiz/quiz.directive.tpl.html')
+			, controller: [controller]
+		}
+	}];
+}
+
+function controller() {
+	console.log('quiz-d!');
+}

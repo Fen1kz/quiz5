@@ -21,6 +21,7 @@
       "bluebird": "npm:bluebird@^2.9.34",
       "css": "github:systemjs/plugin-css@^0.1.6",
       "json": "github:systemjs/plugin-json@^0.1.0",
+      "lodash": "npm:lodash@^3.10.1",
       "ngreact": "github:davidchang/ngReact@^0.1.4",
       "oclazyload-systemjs-router": "github:lookfirst/oclazyload-systemjs-router@^1.2.1",
       "react": "npm:react@^0.13.0",

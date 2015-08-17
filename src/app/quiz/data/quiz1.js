@@ -1,5 +1,6 @@
 export default {
-  questions: [{
+	name: 'quiz1'
+  , questions: [{
     type: 'one'
     , text: "Sup, how are you?"
     , answers: [{

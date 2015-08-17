@@ -26,6 +26,7 @@ System.config({
     "core-js": "npm:core-js@0.9.18",
     "css": "github:systemjs/plugin-css@0.1.9",
     "json": "github:systemjs/plugin-json@0.1.0",
+    "lodash": "npm:lodash@3.10.1",
     "ngreact": "github:davidchang/ngReact@0.1.4",
     "oclazyload-systemjs-router": "github:lookfirst/oclazyload-systemjs-router@1.2.1",
     "react": "npm:react@0.13.1",
@@ -161,6 +162,9 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "source-map": "npm:source-map@0.1.31"
+    },
+    "npm:lodash@3.10.1": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"
