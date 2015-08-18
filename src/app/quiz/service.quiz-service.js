@@ -1,5 +1,5 @@
 export default (ngModule) => {
-	ngModule.service('quizService', serviceFactory());
+	ngModule.service('quizService', ['$stateParams', QuizService]);
 };
 
 import Promise from 'bluebird';
@@ -7,33 +7,29 @@ import _ from 'lodash';
 
 import quiz1 from 'app/quiz/data/quiz1';
 
-class quizService {
+class QuizService {
 	constructor($stateParams) {
 		this.$stateParams = $stateParams;
+		this.$quizList = [quiz1];
 	}
 
-}
+	getQuizList() {
+		return Promise.resolve(this.$quizList);
+	}
 
-function serviceFactory() {
-	return ['$stateParams', function ($stateParams) {
-		let $quizList = [quiz1];
-		return {
-			getQuizList: () => {
-				return Promise.resolve($quizList);
-			}
-			, init: (quiz) => {
-				this.$quiz = quiz;
-			}
-			, quiz: () => {
-				return (this.$quiz
-					? this.$quiz
-					: this.$quiz = _.find($quizList, 'name', $stateParams.name)
-				);
-			}
-			, question: () => {
-				let questionNumber = $stateParams.question;
-				return this.quiz().questions[questionNumber];
-			}
-		}
-	}]
+	init(quiz) {
+		this.$quiz = quiz;
+	}
+
+	quiz() {
+		return (this.$quiz
+				? this.$quiz
+				: this.$quiz = _.find(this.$quizList, 'name', this.$stateParams.name)
+		);
+	}
+
+	question() {
+		let questionNumber = this.$stateParams.question;
+		return this.quiz().questions[questionNumber];
+	}
 }
