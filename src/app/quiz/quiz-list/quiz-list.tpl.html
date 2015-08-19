@@ -1,0 +1,10 @@
+<section id='app-quiz'>
+	<h1>List of quizzes:</h1>
+	<ul>
+		<li ng-repeat='quiz in ctrl.quizList'>
+			<a href='javascript:void(0);' ng-click='ctrl.startQuiz(quiz)'>{{quiz.name}}</a>
+		</li>
+	</ul>
+</section>
+<footer id='info'>
+</footer>

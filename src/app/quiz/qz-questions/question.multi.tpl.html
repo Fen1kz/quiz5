@@ -1,0 +1,9 @@
+<md-input-container>
+	<div>{{questionCtrl.question.text}}</div>
+	<md-checkbox
+			ng-repeat="answer in questionCtrl.question.answers"
+			ng-click="questionCtrl.util.multi.toggle(answer)"
+			ng-checked="questionCtrl.answer.indexOf(answer) > -1">
+		{{answer.text}}
+	</md-checkbox>
+</md-input-container>

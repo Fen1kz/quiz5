@@ -1,0 +1,10 @@
+<md-input-container>
+	<div>{{questionCtrl.question.text}}</div>
+	<md-radio-group ng-model='questionCtrl.answer'>
+		<md-radio-button
+				ng-repeat="answer in questionCtrl.question.answers"
+				value="{{$index}}">
+			{{answer.text}}
+		</md-radio-button>
+	</md-radio-group>
+</md-input-container>
