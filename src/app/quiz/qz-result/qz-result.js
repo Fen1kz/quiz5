@@ -19,14 +19,11 @@ function directive($templateCache, $compile, quizService) {
 
 function controllerFactory() {
 	return ['$scope', 'quizService', function ($scope, quizService) {
-		quizService.results()
-			//.bind(this)
-			.then((results) => {
-				this.resultsTotal = results.length;
-				this.resultsGood = _.reduce(results, (sum, result) => {
-					return sum + (result.maxScore === result.score ? 1 : 0);
-				}, 0);
-
-			})
+		$scope.$on('QUIZ.RESULTS', (event, results) => {
+			this.resultsTotal = results.length;
+			this.resultsGood = _.reduce(results, (sum, result) => {
+				return sum + (result.maxScore === result.score ? 1 : 0);
+			}, 0);
+		});
 	}];
 }

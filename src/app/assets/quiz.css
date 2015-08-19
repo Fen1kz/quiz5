@@ -19,3 +19,11 @@
 .invalid {
 	color: red !important;
 }
+
+/*md-checkbox.mirror .md-container {*/
+/*right: auto;*/
+/*left: auto;*/
+/*position: relative;*/
+/*display: inline-block;*/
+/*top: 0.8em;*/
+/*}*/

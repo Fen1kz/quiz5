@@ -1,5 +1,5 @@
 <section>
-	<md-tabs md-selected="ctrl.selectedTab" md-dynamic-height md-border-bottom>
+	<md-tabs md-dynamic-height md-selected="ctrl.selectedTab" md-border-bottom>
 		<md-tab ng-repeat="tab in ctrl.tabs"
 				md-on-select="ctrl.mdOnSelect($index)"
 				md-on-deselect="ctrl.mdOnDeselect($index)">
@@ -10,11 +10,10 @@
 					layout-margin
 					index="$index"
 					type="{{tab.type}}"
-					result="!ctrl.tabResults.disabled"
-			>
+					result="!ctrl.tabResults.disabled">
 			</qz-question>
 		</md-tab>
-		<md-tab ng-if="!ctrl.tabResults.disabled"
+		<md-tab ng-disabled="ctrl.tabResults.disabled"
 				md-on-select="ctrl.mdOnSelectResult($index)">
 			<md-tab-label>
 				<span>{{ctrl.tabResults.label}}</span>

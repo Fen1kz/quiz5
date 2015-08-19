@@ -61,5 +61,10 @@ export default ['$scope', '$state', '$stateParams', '$mdDialog', 'quizService', 
 		this.selectTab(this.tabs.length);
 		$scope.$broadcast('QUIZ.ENDED');
 		quizService.endQuiz();
+		quizService.results()
+			//.bind(this)
+			.then((results) => {
+				$scope.$broadcast('QUIZ.RESULTS', results);
+			});
 	}
 }];
