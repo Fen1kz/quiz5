@@ -7,6 +7,7 @@ function directive($templateCache, $compile, quizService) {
 		, scope: {
 			index: '='
 			, type: '@'
+			, result: '='
 		}
 		, compile: (element, attrs) =>
 			(scope, element, attrs) => {
@@ -28,13 +29,16 @@ function controllerFactory() {
 			quizService.answer(ctrl.question, ctrl.answer);
 		});
 
+		$scope.$on('QUIZ.ENDED', (e) => {
+		});
+
 		ctrl.util = {
 			multi: {
-				toggle: (item) => {
-					if (ctrl.answer === void 0) ctrl.answer = [];
-					var idx = ctrl.answer.indexOf(item);
-					if (idx > -1) ctrl.answer.splice(idx, 1);
-					else ctrl.answer.push(item);
+				toggle: (index) => {
+					ctrl.answer[index] = !ctrl.answer[index];
+				}
+				, checked: (index) => {
+					return ctrl.answer[index];
 				}
 			}
 		}

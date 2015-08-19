@@ -1,5 +1,7 @@
 export default ['$templateCache', '$compile', 'quizService', directive]
 
+import _ from 'lodash';
+
 function directive($templateCache, $compile, quizService) {
 	return {
 		restrict: 'E'
@@ -17,6 +19,14 @@ function directive($templateCache, $compile, quizService) {
 
 function controllerFactory() {
 	return ['$scope', 'quizService', function ($scope, quizService) {
-		//quizService
+		quizService.results()
+			//.bind(this)
+			.then((results) => {
+				this.resultsTotal = results.length;
+				this.resultsGood = _.reduce(results, (sum, result) => {
+					return sum + (result.maxScore === result.score ? 1 : 0);
+				}, 0);
+
+			})
 	}];
 }

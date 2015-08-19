@@ -7,6 +7,7 @@ export default ['$scope', '$state', '$stateParams', '$mdDialog', 'quizService', 
 
 	this.tabs = this.quiz.questions;
 	this.selectedTab = (!isNaN($stateParams.question) ? $stateParams.question : this.tabs.length);
+	this.selectedTab = (!isNaN($stateParams.question) ? $stateParams.question : this.tabs.length - 1);
 	this.tabResults = {
 		custom: true
 		, label: 'Результаты'
@@ -58,6 +59,7 @@ export default ['$scope', '$state', '$stateParams', '$mdDialog', 'quizService', 
 	this.endQuiz = () => {
 		this.tabResults.disabled = false;
 		this.selectTab(this.tabs.length);
+		$scope.$broadcast('QUIZ.ENDED');
 		quizService.endQuiz();
 	}
 }];

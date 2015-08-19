@@ -1,3 +1,21 @@
 .md-tab .answered {
 	font-weight: bold;
 }
+
+.md-tab span[result="0"] {
+	color: red;
+}
+.md-tab span[result="1"] {
+	color: orange;
+}
+.md-tab span[result="2"] {
+	color: green;
+}
+
+.valid {
+	color: green !important;
+}
+
+.invalid {
+	color: red !important;
+}

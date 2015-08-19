@@ -47,6 +47,20 @@ class QuizService {
 	endQuiz() {
 		this.$quiz.results = _.zipWith(this.$quiz.questions, this.$quiz.answers, (question, answer) => {
 			let result = {};
+			result.maxScore = (() => {
+				switch (question.type) {
+					case 'one':
+						return _.max(question.answers, 'score').score;
+					case 'multi':
+						return _.reduce(question.answers, (sum, answer) => {
+							return sum + answer.score;
+						}, 0);
+					case 'text':
+						return 1;
+					default:
+						return 0;
+				}
+			})();
 			result.score = (() => {
 				switch (question.type) {
 					case 'one':
@@ -54,23 +68,39 @@ class QuizService {
 						return (!_.isEmpty(realAnswer) ? realAnswer.score : 0);
 					case 'multi':
 						return _.zipWith(question.answers, answer || [], (qItem, aItem) => {
-							aItem = _.defaults(aItem || {}, {score: 0});
-							return ((qItem.score > 0 && aItem.score > 0)
+							return ((qItem.score > 0 && aItem)
 								? 1
-								: (qItem.score <= 0 && aItem.score > 0)
+								: (qItem.score <= 0 && aItem)
 									? -1
 									: 0);
 						}).reduce((sum, score) => {
 							return (sum + score >= 0 ? sum + score : 0);
 						}, 0);
 					case 'text':
-						return (_.chain(question.answer).trim().escape().startCase().value() === _.chain(answer).trim().escape().startCase().value() ? 1 : 0);
+						return (_.chain(question.answer.text).trim().escape().startCase().value() === _.chain(answer).trim().escape().startCase().value() ? question.answer.score : 0);
 					default:
 						return 0;
 				}
 			})();
 			return result;
+		}).map((result) => {
+			return result;
 		});
 		return Promise.resolve();
+	}
+
+	results() {
+		return Promise.resolve(this.quiz().results)
+			.bind(this)
+			.tap(results => {
+				let questions = this.quiz().questions;
+				_.zipWith(questions, results, (question, result) => {
+					question.result = (result.maxScore === result.score
+						? 2
+						: (result.score > 0
+						? 1
+						: 0));
+				});
+			});
 	}
 }

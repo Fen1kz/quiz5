@@ -1,8 +1,12 @@
 <md-input-container>
 	<div>{{questionCtrl.question.text}}</div>
-	<md-radio-group ng-model='questionCtrl.answer'>
+	<md-radio-group
+			ng-model='questionCtrl.answer'
+		>
 		<md-radio-button
+				ng-disabled="questionCtrl.result"
 				ng-repeat="answer in questionCtrl.question.answers"
+				ng-class="{valid : questionCtrl.result && answer.score > 0, invalid : questionCtrl.result && answer.score <= 0}"
 				value="{{$index}}">
 			{{answer.text}}
 		</md-radio-button>

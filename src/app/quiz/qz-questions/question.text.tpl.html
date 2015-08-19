@@ -1,8 +1,10 @@
 <div>
-	<md-input-container>{{questionCtrl.question.text}}</md-input-container>
+	<md-input-container>{{questionCtrl.question.text}}<span ng-if="questionCtrl.result" class="valid"> {{questionCtrl.question.answer.text}}</span></md-input-container>
 	<md-input-container>
 		<input
+				ng-disabled="questionCtrl.result"
 				class="md-whiteframe-z5"
+				ng-class="{valid : questionCtrl.result && questionCtrl.question.result > 0, invalid : questionCtrl.result && questionCtrl.question.result <= 0}"
 				ng-model='questionCtrl.answer'
 				placeholder="Впишите ответ"
 		/>

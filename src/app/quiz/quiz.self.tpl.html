@@ -4,9 +4,14 @@
 				md-on-select="ctrl.mdOnSelect($index)"
 				md-on-deselect="ctrl.mdOnDeselect($index)">
 			<md-tab-label>
-				<span ng-class="{'answered' : tab.answered}">{{$index}}</span>
+				<span ng-class="{'answered' : tab.answered}" result="{{tab.result}}">{{$index}}</span>
 			</md-tab-label>
-			<qz-question layout-margin index="$index" type="{{tab.type}}">
+			<qz-question
+					layout-margin
+					index="$index"
+					type="{{tab.type}}"
+					result="!ctrl.tabResults.disabled"
+			>
 			</qz-question>
 		</md-tab>
 		<md-tab ng-if="!ctrl.tabResults.disabled"
