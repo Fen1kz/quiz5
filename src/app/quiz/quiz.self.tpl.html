@@ -1,2 +1,35 @@
-<div>ANSWER FUCKING QUESTION:</div>
-<div>{{ctrl.question.text}}</div>
+<section>
+	<md-tabs md-selected="ctrl.selectedTab" md-dynamic-height md-border-bottom>
+		<md-tab ng-repeat="tab in ctrl.tabs"
+				md-on-select="ctrl.mdOnSelect($index)"
+				md-on-deselect="ctrl.mdOnDeselect($index)">
+			<md-tab-label>
+				<span ng-class="{'answered' : tab.answered}">{{$index}}</span>
+			</md-tab-label>
+			<qz-question layout-margin index="$index" type="{{tab.type}}">
+			</qz-question>
+		</md-tab>
+		<md-tab ng-if="!ctrl.tabResults.disabled"
+				md-on-select="ctrl.mdOnSelectResult($index)">
+			<md-tab-label>
+				<span>{{ctrl.tabResults.label}}</span>
+			</md-tab-label>
+			<qz-result>
+			</qz-result>
+		</md-tab>
+	</md-tabs>
+	<md-button ng-disabled="ctrl.question.first"
+			   ng-click="ctrl.selectTab(ctrl.selectedTab - 1)"
+			   class="md-raised">←
+	</md-button>
+	<md-button ng-if="!ctrl.question.last && ctrl.question"
+			   ng-click="ctrl.selectTab(ctrl.selectedTab + 1)"
+			   class="md-raised md-primary">→
+	</md-button>
+	<md-button ng-if="ctrl.question.last"
+			   ng-click="ctrl.endQuizAsk($event)"
+			   class="md-raised md-warn">Результаты
+	</md-button>
+	<pre>{{ctrl.quiz | json}}</pre>
+	<!--<pre>{{ctrl.$stateParams | json}}</pre>-->
+</section>

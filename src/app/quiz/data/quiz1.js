@@ -32,7 +32,7 @@ export default {
       text: "something"
       , score: 0
     }]
-  }, {
+  },{
     type: 'link'
     , text: "make titles:"
     , col1: [
@@ -49,5 +49,6 @@ export default {
     type: 'text'
     , text: "Capital of The Great Britain?"
     , answer: "London"
-  }]
+  }
+	]
 };
