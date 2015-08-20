@@ -1,19 +1,30 @@
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-material';
+import mdStyleColor from './quiz/lib/md-style-color';
+import angularDragula from 'angular-dragula';
 import templates from '../templates';
 import './assets/quiz.css!';
+import 'angular-dragula/dist/dragula.min.css!';
 
 //import router from 'oclazyload-systemjs-router';
 //import futureRoutes from 'app/routes.json!';
 import quizModule from 'app/quiz/quiz.config';
 
-var appModule = angular.module('app', ['templates', 'ngMaterial', 'ui.router', quizModule.name]);
+mdStyleColor(angular);
+
+var appModule = angular.module('app', [
+	'templates'
+	, 'mdColors'
+	, 'ngMaterial'
+	, 'ui.router'
+	, angularDragula(angular)
+	, quizModule.name]);
 
 appModule.config(['$mdThemingProvider', function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		//.primaryPalette('blue')
-		//.accentPalette('green');
+		.accentPalette('orange');
 }]);
 
 appModule.config(['$locationProvider', '$httpProvider', '$urlRouterProvider', function($locationProvider, $httpProvider, $urlRouterProvider) {

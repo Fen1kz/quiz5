@@ -1,5 +1,58 @@
 <md-input-container>
 	<div>{{questionCtrl.question.text}}</div>
 	<div id="qz-question-{{questionCtrl.index}}"></div>
-	{{questionCtrl.cols | json}}
+	<!--<div layout="row" layout-margin>-->
+	<!--<div class='wrapper'>-->
+	<!--<div class='container' dragula='"qz-bag-link"' dragula-model='many'>-->
+	<!--<div ng-repeat='text in many' ng-bind='text'></div>-->
+	<!--</div>-->
+	<!--<div class='container' dragula='"qz-bag-link"' dragula-model='many2'>-->
+	<!--<div ng-repeat='text in many2' ng-bind='text'></div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<div layout="row">
+		<div layout-margin layout="row" layout-align="space-between start" flex>
+			<div class='md-whiteframe-z1'>
+				<div layout-padding ng-repeat="target in questionCtrl.targets" layout="row">
+					<div layout-padding class='md-whiteframe-z1' md-style-color="{'background-color': 'primary.200'}">
+						{{target.text}}
+					</div>
+					<div class='md-whiteframe-z1' dragula='"qz-bag-link"' dragula-model='target.items'
+						 style="min-width: 5em; min-height: 1em;">
+						<div layout-padding class='md-whiteframe-z1' style="text-align: center; max-height: 1em;"
+							 ng-repeat='tgItem in target.items'>
+							<span>{{tgItem.text}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div layout-padding class='md-whiteframe-z1' dragula='"qz-bag-link"' dragula-model='questionCtrl.source'
+				 style="min-width: 10em; min-height: 1em;">
+				<div layout-padding class='md-whiteframe-z1' style="display: inline-block; text-align: center; max-height: 1em;"
+					 ng-repeat='tgItem in questionCtrl.source'>
+					<span>{{tgItem.text}}</span>
+				</div>
+			</div>
+		</div>
+		<div flex>
+		</div>
+	</div>
+	<!--<div layout="row" layout-margin>-->
+	<!--<div class='md-whiteframe-z3'>-->
+	<!--<div layout-padding ng-repeat="col in questionCtrl.question.col1" layout="row">-->
+	<!--<div layout-padding class='md-whiteframe-z1'>{{col.text}}</div>-->
+	<!--<div class='md-whiteframe-z1' dragula='"bag-link"' dragula-model='questionCtrl.box[$index]' style="min-width: 1em; min-height: 1em;">-->
+	<!--<div layout-padding class='md-whiteframe-z1' ng-repeat="b in questionCtrl.box[$index]">{{b.text}}</div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--<div layout-padding class='md-whiteframe-z3' dragula='"bag-link"' style="min-width: 10em; min-height: 1em;">-->
+	<!--<div layout-padding class='md-whiteframe-z1' ng-repeat="col in questionCtrl.question.col2">{{col.text}}</div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--<div>{{questionCtrl | json}}</div>-->
+	<div>{{questionCtrl.targets | json}}</div>
+	<div>{{questionCtrl.source | json}}</div>
+	<div>{{questionCtrl.answer | json}}</div>
 </md-input-container>
