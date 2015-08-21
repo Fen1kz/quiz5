@@ -37,11 +37,13 @@ export default {
 		, text: "make titles:"
 		, col1: [
 			{id: 0, text: 'Lion'}
-			, {id: 1, text: 'Adventure'}]
+			, {id: 1, text: 'Adventure'}
+			, {id: 2, text: 'The Little'}]
 		, col2: [
 			{id: 0, text: 'King'}
-			, {id: 1, text: 'Times'}]
-		, links: [[0, 0], [1, 1]]
+			, {id: 1, text: 'Times'}
+			, {id: 2, text: 'Mermaid'}]
+		, links: [[0, 0], [1, 1], [2, 2]]
 	}, {
 		type: 'text'
 		, text: "Capital of The Great Britain?"

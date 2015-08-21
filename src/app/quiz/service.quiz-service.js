@@ -55,8 +55,10 @@ class QuizService {
 						return _.reduce(question.answers, (sum, answer) => {
 							return sum + answer.score;
 						}, 0);
+					case 'link':
+						return question.links.length;
 					case 'text':
-						return 1;
+						return question.answer.score;
 					default:
 						return 0;
 				}
@@ -67,15 +69,25 @@ class QuizService {
 						let realAnswer = question.answers[answer];
 						return (!_.isEmpty(realAnswer) ? realAnswer.score : 0);
 					case 'multi':
-						return _.zipWith(question.answers, answer || [], (qItem, aItem) => {
-							return ((qItem.score > 0 && aItem)
+						return _.zipWith(question.answers, answer || [], (qItem, aItem) =>
+							((qItem.score > 0 && aItem)
 								? 1
-								: (qItem.score <= 0 && aItem)
-									? -1
-									: 0);
-						}).reduce((sum, score) => {
-							return (sum + score >= 0 ? sum + score : 0);
-						}, 0);
+								: (qItem.score <= 0 && aItem
+								? -1
+								: 0)))
+							.reduce((sum, score) => (sum + score >= 0 ? sum + score : 0), 0);
+					case 'link':
+						return (!Array.isArray(answer)
+							? 0
+							: (answer.map((linkA) =>
+							(_.some(question.links, linkA)
+								? 1
+								: -1))
+							.map((score, i) => {
+								answer[i].push(score);
+								return score;
+							})
+							.reduce((sum, score) => (sum + score >= 0 ? sum + score : 0), 0)));
 					case 'text':
 						return (_.chain(question.answer.text).trim().escape().startCase().value() === _.chain(answer).trim().escape().startCase().value() ? question.answer.score : 0);
 					default:

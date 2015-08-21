@@ -131,7 +131,6 @@ taskMaker.defineTask('babel', {
 //});
 taskMaker.defineTask('copy', {taskName: 'systemConfig', src: path.systemConfig, dest: path.output});
 taskMaker.defineTask('copy', {taskName: 'assets', src: path.assets, dest: path.output});
-taskMaker.defineTask('copy', {taskName: 'assets', src: path.libSource, dest: path.libDest});
 taskMaker.defineTask('copy', {taskName: 'json', src: path.json, dest: path.output, changed: {extension: '.json'}});
 taskMaker.defineTask('copy', {taskName: 'index.html', src: path.index, dest: path.output, rename: 'index.html'});
 taskMaker.defineTask('copy', {

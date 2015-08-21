@@ -24,6 +24,8 @@ function controllerFactory() {
 			this.resultsGood = _.reduce(results, (sum, result) => {
 				return sum + (result.maxScore === result.score ? 1 : 0);
 			}, 0);
+			this.scoreTotal = results.reduce((score, result) => (score + result.maxScore), 0);
+			this.scoreGood = results.reduce((score, result) => (score + result.score), 0);
 		});
 	}];
 }

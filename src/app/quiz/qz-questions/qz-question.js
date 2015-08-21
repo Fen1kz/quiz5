@@ -24,14 +24,26 @@ function directive($templateCache, $compile, quizService) {
 }
 
 function controllerFactory() {
-	return ['$scope', 'quizService', function ($scope, quizService) {
+	return ['$scope', 'dragulaService', 'quizService', function ($scope, dragulaService, quizService) {
 		let ctrl = this;
 		ctrl.question = quizService.quiz().questions[ctrl.index];
 		$scope.$watchCollection('questionCtrl.answer', () => {
 			quizService.answer(ctrl.question, ctrl.answer);
 		});
+
 		$scope.$on('QUIZ.ENDED', (e) => {
+			if (ctrl.events[ctrl.type] && ctrl.events[ctrl.type].end) {
+				ctrl.events[ctrl.type].end();
+			}
 		});
+
+		$scope.$on('QUIZ.RESULTS', (e) => {
+			if (ctrl.events[ctrl.type] && ctrl.events[ctrl.type].results) {
+				ctrl.events[ctrl.type].results();
+			}
+		});
+
+
 		ctrl.events = {
 			link: {
 				start: () => {
@@ -42,21 +54,30 @@ function controllerFactory() {
 					}));
 					ctrl.targets = ctrl.question.col1;
 					ctrl.source = ctrl.question.col2;
-					$scope.$watch(() => ctrl.targets, (a,b) => {
-						ctrl.answer.length = 0;
-						ctrl.targets.forEach((target) => {
-							target.items.forEach((item) => {
-								ctrl.answer.push([target.id, item.id]);
+					$scope.$watch(() => ctrl.targets, (a, b) => {
+						if (!ctrl.result) {
+							ctrl.answer.length = 0;
+							ctrl.targets.forEach((target) => {
+								target.items.forEach((item) => {
+									ctrl.answer.push([target.id, item.id]);
+								});
+							});
+						}
+					}, true);
+				}
+				, end: () => {
+					dragulaService.destroy($scope, 'qz-bag-link');
+				}
+				, results: () => {
+					ctrl.targets.forEach(target => {
+						target.items.forEach((item) => {
+							ctrl.answer.forEach(answer => {
+								if (target.id == answer[0] && item.id == answer[1]) {
+									item.score = answer[2];
+								}
 							});
 						});
-					}, true);
-					//$scope.source  = ['The', 'possibilities', 'are', 'endless!'];
-					//$scope.targets = [
-					//	['one', 'two']
-					//	, ['Explore', 'them']
-					//];
-					//$scope.misc = ['1', '2', '3'];
-					//$scope.misc2 = ['6', '5', '4'];
+					})
 				}
 			}
 		};
