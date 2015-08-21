@@ -82,8 +82,8 @@ var cacheBustConfig = {
 };
 
 var routeBundleConfig = {
-	//baseURL: path.output,
-	main: 'app/app',
+	baseURL: path.output,
+	main: 'src/app/app',
 	routes: routesSrc,
 	bundleThreshold: 0.6,
 	systemConfig: path.systemConfig,
@@ -179,6 +179,7 @@ gulp.task('test', function (callback) {
 gulp.task('run', function (callback) {
 	if (situation.isProduction()) {
 		//return runSequence('recompile', 'routeBundler', 'cache-bust-index.html', 'htmlMinify-index.html', 'minify', 'serve', callback);
+		return runSequence('recompile', 'cache-bust-index.html', 'htmlMinify-index.html', 'minify', 'serve', callback);
 		//return runSequence('recompile', 'bundle2', 'cache-bust-index.html', 'htmlMinify-index.html', 'minify', 'serve', callback);
 		//return runSequence('recompile', 'cache-bust-index.html', 'htmlMinify-index.html', 'minify', 'serve', callback);
 	} else if (situation.isDevelopment()) {
